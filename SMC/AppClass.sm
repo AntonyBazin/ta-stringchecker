@@ -1,0 +1,49 @@
+%start Map1::Start
+%class AppClass
+
+%map Map1
+%%
+// State        Transition         End State       Action(s)
+Start
+{
+                LArr                LArrs            {}
+}
+
+LArrs
+{
+                Dash                Dashed           {}
+}
+
+Dashed
+{
+                Exclam              Name             {}
+                Letter              Name             {}
+}
+
+Name
+{
+                Letter[ctxt.length_available()] nil {}
+                Number[ctxt.length_available()] nil {}
+                Sign[ctxt.length_available()]  Signs{add_var();}
+                Htag[ctxt.length_available()]   End {add_var();}
+}
+
+Signs
+{
+                Exclam              Name             {}
+                Letter              Name             {}
+}
+
+End
+{
+                EOS                 Start               {Acceptable(); push_vars();}
+}
+
+
+Default
+{
+                Default                Start            {Unacceptable();}
+
+}
+
+%%

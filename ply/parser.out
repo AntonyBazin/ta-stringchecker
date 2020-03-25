@@ -1,0 +1,118 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    EXPR
+    UN
+
+Grammar
+
+Rule 0     S' -> begin
+Rule 1     begin -> BR DASH VAR exp SH NL
+Rule 2     exp -> SIGN VAR exp
+Rule 3     exp -> <empty>
+
+Terminals, with rules where they appear
+
+BR                   : 1
+DASH                 : 1
+EXPR                 : 
+NL                   : 1
+SH                   : 1
+SIGN                 : 2
+UN                   : 
+VAR                  : 1 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+begin                : 0
+exp                  : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . begin
+    (1) begin -> . BR DASH VAR exp SH NL
+
+    BR              shift and go to state 2
+
+    begin                          shift and go to state 1
+
+state 1
+
+    (0) S' -> begin .
+
+
+
+state 2
+
+    (1) begin -> BR . DASH VAR exp SH NL
+
+    DASH            shift and go to state 3
+
+
+state 3
+
+    (1) begin -> BR DASH . VAR exp SH NL
+
+    VAR             shift and go to state 4
+
+
+state 4
+
+    (1) begin -> BR DASH VAR . exp SH NL
+    (2) exp -> . SIGN VAR exp
+    (3) exp -> .
+
+    SIGN            shift and go to state 6
+    SH              reduce using rule 3 (exp -> .)
+
+    exp                            shift and go to state 5
+
+state 5
+
+    (1) begin -> BR DASH VAR exp . SH NL
+
+    SH              shift and go to state 7
+
+
+state 6
+
+    (2) exp -> SIGN . VAR exp
+
+    VAR             shift and go to state 8
+
+
+state 7
+
+    (1) begin -> BR DASH VAR exp SH . NL
+
+    NL              shift and go to state 9
+
+
+state 8
+
+    (2) exp -> SIGN VAR . exp
+    (2) exp -> . SIGN VAR exp
+    (3) exp -> .
+
+    SIGN            shift and go to state 6
+    SH              reduce using rule 3 (exp -> .)
+
+    exp                            shift and go to state 10
+
+state 9
+
+    (1) begin -> BR DASH VAR exp SH NL .
+
+    $end            reduce using rule 1 (begin -> BR DASH VAR exp SH NL .)
+
+
+state 10
+
+    (2) exp -> SIGN VAR exp .
+
+    SH              reduce using rule 2 (exp -> SIGN VAR exp .)
+
