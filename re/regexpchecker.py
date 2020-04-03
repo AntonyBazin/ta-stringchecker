@@ -14,7 +14,7 @@ def analyze(filename):
         for line in dt:
             if regexp.fullmatch(line):
                 counter += 1
-                for name in list(reversed(word.findall(line))):
+                for name in word.findall(line):
                     if name not in names_dict.keys():
                         names_dict[name] = 1
                     else:
