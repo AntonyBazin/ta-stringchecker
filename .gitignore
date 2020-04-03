@@ -370,3 +370,7 @@ venv.bak/
 pip-selfcheck.json
 
 # End of https://www.gitignore.io/api/virtualenv
+re/answer_re.txt
+ply/answer_ply.txt
+SMC/answer_smc.txt
+data.txt
