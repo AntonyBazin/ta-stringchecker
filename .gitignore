@@ -373,4 +373,8 @@ pip-selfcheck.json
 re/answer_re.txt
 ply/answer_ply.txt
 SMC/answer_smc.txt
+re/timig-re.txt
+ply/timig-ply.txt
+SMC/timing-smc.txt
 data.txt
+
