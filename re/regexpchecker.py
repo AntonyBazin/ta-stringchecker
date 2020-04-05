@@ -9,9 +9,13 @@ def analyze(filename):
     regexp = re.compile(r'<-[!a-zA-Z][a-zA-Z\d]{0,15}([&|^]([!a-zA-Z][a-zA-Z\d]{0,15}))*#\n')
     word = re.compile(r'[!a-zA-Z][a-zA-Z\d]{0,15}')
     counter = 0
-
+    with open('timing-re.txt', 'w') as out:
+        out.write('# amount TIME\n')
     with open(filename, 'r') as dt:
+        cnt = 0
+        start = time.time()
         for line in dt:
+            cnt += 1
             if regexp.fullmatch(line):
                 counter += 1
                 for name in word.findall(line):
@@ -19,6 +23,11 @@ def analyze(filename):
                         names_dict[name] = 1
                     else:
                         names_dict[name] += 1
+            if not cnt % 100000:
+                end = time.time()
+                with open('timing-re.txt', 'a') as out:
+                    out.write(str(cnt / 100000) + ' ' + str(end - start) + '\n')
+
     names_dict = dict(reversed(sorted(names_dict.items(), key=lambda x: x[1])))
     with open('answer_re.txt', 'w') as ans:
         ans.write('Lines read successfully: ' + str(counter) + '\n')
@@ -27,8 +36,5 @@ def analyze(filename):
 
 if __name__ == '__main__':
     print('Input file name to analyze:')
-    start = time.time()
     analyze(input())
-    end = time.time()
-    with open('timing-re.txt', 'w') as file:
-        file.write(str(end - start))
+

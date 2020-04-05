@@ -30,7 +30,8 @@ if __name__ == '__main__':
     with open('data.txt', 'w') as dt:
         for c in generate_string(1000000):
             if rn.choice([True, False]):
-                c = damage_string(c, rn.choice(range(4)))
+                for _ in range(4):
+                    c = damage_string(c, rn.choice(range(4)))
                 errors += 1
             dt.write(c + '\n')
     print(errors)
